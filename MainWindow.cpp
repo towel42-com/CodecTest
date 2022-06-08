@@ -62,10 +62,10 @@ CMainWindow::~CMainWindow()
 
 void CMainWindow::slotLoadDefaults()
 {
-    fImpl->lineEditEnglish->setText(  u8"This is a test of the national broadcasting system in multiple houses" );
-    fImpl->lineEditGerman->setText( u8"Dies ist ein Test des nationalen Rundfunksystems in mehreren Häusern" );
-    fImpl->lineEditHindi->setText( u8"यह कई घरों में राष्ट्रीय प्रसारण प्रणाली की परीक्षा है" );
-    fImpl->lineEditHebrew->setText( u8"זהו מבחן של מערכת השידור הארצית במספר בתים" );
+    fImpl->lineEditEnglish->setText( QString::fromUtf8( u8"This is a test of the national broadcasting system in multiple houses" ) );
+    fImpl->lineEditGerman->setText( QString::fromUtf8( u8"Dies ist ein Test des nationalen Rundfunksystems in mehreren Häusern" ) );
+    fImpl->lineEditHindi->setText( QString::fromUtf8( u8"यह कई घरों में राष्ट्रीय प्रसारण प्रणाली की परीक्षा है" ) );
+    fImpl->lineEditHebrew->setText( QString::fromUtf8( u8"זהו מבחן של מערכת השידור הארצית במספר בתים" ) );
 }
 
 void CMainWindow::slotEnglishChangedNoData()
