@@ -41,9 +41,12 @@ public:
     virtual ~CMainWindow() override;
 
 public Q_SLOTS:
+    void slotEnglishChangedNoData();
     void slotGermanChangedNoData();
     void slotHindiChangedNoData();
     void slotHebrewChangedNoData();
+
+    void slotEnglishChangedWithData( const QString & text );
     void slotGermanChangedWithData( const QString & text );
     void slotHindiChangedWithData( const QString & text );
     void slotHebrewChangedWithData( const QString & text );

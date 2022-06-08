@@ -33,6 +33,10 @@ CMainWindow::CMainWindow( QWidget * parent )
     fImpl( new Ui::CMainWindow )
 {
     fImpl->setupUi( this );
+
+    connect( fImpl->lineEditEnglish, &QLineEdit::textChanged, this, &CMainWindow::slotEnglishChangedNoData );
+    connect( fImpl->lineEditEnglish, &QLineEdit::textChanged, this, &CMainWindow::slotEnglishChangedWithData );
+
     connect( fImpl->lineEditGerman, &QLineEdit::textChanged, this, &CMainWindow::slotGermanChangedNoData );
     connect( fImpl->lineEditGerman, &QLineEdit::textChanged, this, &CMainWindow::slotGermanChangedWithData );
 
@@ -58,9 +62,15 @@ CMainWindow::~CMainWindow()
 
 void CMainWindow::slotLoadDefaults()
 {
-    fImpl->lineEditGerman->setText( QString::fromUtf8( u8"Dies ist ein Test des nationalen Rundfunksystems in mehreren Häusern" ) );
-    fImpl->lineEditHindi->setText( QString::fromUtf8( u8"यह कई घरों में राष्ट्रीय प्रसारण प्रणाली की परीक्षा है" ) );
-    fImpl->lineEditHebrew->setText( QString::fromUtf8( u8"זהו מבחן של מערכת השידור הארצית במספר בתים" ) );
+    fImpl->lineEditEnglish->setText(  u8"This is a test of the national broadcasting system in multiple houses" );
+    fImpl->lineEditGerman->setText( u8"Dies ist ein Test des nationalen Rundfunksystems in mehreren Häusern" );
+    fImpl->lineEditHindi->setText( u8"यह कई घरों में राष्ट्रीय प्रसारण प्रणाली की परीक्षा है" );
+    fImpl->lineEditHebrew->setText( u8"זהו מבחן של מערכת השידור הארצית במספר בתים" );
+}
+
+void CMainWindow::slotEnglishChangedNoData()
+{
+    displayData( "English", fImpl->lineEditEnglish );
 }
 
 void CMainWindow::slotGermanChangedNoData() 
@@ -76,6 +86,11 @@ void CMainWindow::slotHindiChangedNoData()
 void CMainWindow::slotHebrewChangedNoData() 
 {
     displayData( "Hebrew", fImpl->lineEditHebrew );
+}
+
+void CMainWindow::slotEnglishChangedWithData( const QString & value )
+{
+    displayData( "English", value, true );
 }
 
 void CMainWindow::slotGermanChangedWithData( const QString & value ) 
@@ -100,8 +115,8 @@ void CMainWindow::displayData( const QString & label, QLineEdit * le )
 
 void CMainWindow::displayData( const QString & label, const QString & value, bool fromText )
 {
-    qDebug().noquote() << "From text via signal: " << ( fromText ? "yes" : "no" ) << "Label: " << label << "Value: " << value;
-    *( fTextStream ) << "From text via signal: " << ( fromText ? "yes" : "no" ) << "Label: " << label << "Value: " << value << "\n";
+    qDebug().noquote() << "From text via signal: " << ( fromText ? "yes" : "no" ) << " Label: " << label << " Value: " << value;
+    *( fTextStream ) << "From text via signal: " << ( fromText ? "yes" : "no" ) << " Label: " << label << " Value: " << value << "\n";
     *( fTextStream ) << "===========================================================" << "\n";
     fTextStream->flush();
 }
